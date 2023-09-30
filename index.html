@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>大屏可视化项目</title>
+  <script type="module" crossorigin src="./assets/index-d5ae4d52.js"></script>
+  <link rel="stylesheet" href="./assets/index-8c94d918.css">
+</head>
+<script>
+  const deviceWidth = document.documentElement.clientWidth;
+  const deviceHeight = document.documentElement.clientHeight;
+  // 窗口 暴露 window.pageWidth
+  window.pageWidth = deviceWidth / deviceHeight > 16 / 9 ? deviceHeight * (16 / 9) : deviceWidth;
+  const pageHeight = pageWidth / (16 / 9)
+
+  // 在根元素 head 中使用 JS 设置 1rem = Wp / 100
+  const string = `
+  <style>
+  html {
+    font-size: ${pageWidth / 100}px;
+  }
+  </style>
+`
+  document.write(string)
+</script>
+
+<body>
+
+<div id="root" class="root"></div>
+
+<script>
+  const root = document.querySelector('#root')
+  // root.style.width = `${pageWidth}px` // 设置 header 和 main 的有效宽度 px(2620) footer 宽度自动撑开
+  root.style.height = `${pageHeight}px`
+  root.style.marginTop = `${(deviceHeight - pageHeight) / 2}px`
+  // root.style.marginLeft = `${(deviceWidth - pageWidth) / 2}px`
+</script>
+
+
+</body>
+</html>
